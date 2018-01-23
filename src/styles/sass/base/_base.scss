@@ -1,0 +1,28 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{   
+    font-family: $main-font,Arial, Helvetica, sans-serif;
+    background: $gray-color;
+}
+
+ul{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+
+button{
+    &.Default{
+        @include button($gray-color);
+    }
+    
+    &.Success{
+        @include button($green-color);
+    }
+}
+

@@ -1,0 +1,38 @@
+.contact{
+    width: 60%;
+    box-shadow: 0 0 5px darken($gray-color,10%);
+    margin: 4% auto;
+    padding: 4%;
+    label{
+        display: block;
+        text-align: left;
+        font-weight: bold;
+    }
+    h4{
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+    }
+    input,textarea,select{
+        width: 100%;
+        padding: 5px;
+        margin: 10px 0;
+        outline: none;
+        display: block;
+        font-size: 1rem;
+        &:focus{
+            background: darken($gray-color,10%);
+            outline: none;
+        }
+        &.invalid{
+            background: red;
+        }
+    }
+    input{
+        height: 40px;
+    }
+    
+    button{
+        width: 100%;
+        margin: 10px 0;
+    }
+}

@@ -1,0 +1,44 @@
+.sideDrawer{
+    width: 200px;
+    max-width: 70%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    padding: 4%;
+    background: $white-color;
+    transition: transform 300ms ease-out;
+    .logo{
+        margin-bottom: 20px;
+    }
+    nav{
+        ul{
+            li{
+                margin-bottom: 10px;
+                a{
+                    color :darken($blue-color, 10%);
+                    transition: color 400ms ease-out;
+
+                }
+                &.active,&:active,&:hover{
+                    a{
+                        color: lighten($blue-color, 10%);
+                    }
+                }
+            }
+            
+        }
+    }
+
+    @media screen and (min-width:500px) {
+        display: none;
+    }
+}
+
+.sideDrawer-open{
+    transform: translateX(0);
+}
+.sideDrawer-close{
+    transform:  translateX(-100%);
+}

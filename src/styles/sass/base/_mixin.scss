@@ -1,0 +1,24 @@
+@mixin button($color){
+        text-align: center;
+        cursor: pointer;
+        padding: 10px 5px;
+        background: darken($color, 5%);
+        border: none;
+        outline: none;
+        color: $white-color;
+        font-size: 1rem;
+        border-radius: 2px;
+        box-shadow: 0  2px 2px  darken($color,20%);
+        transition: background ease 400ms;
+        &.less{
+            background: darken($color, 10%);
+        }          
+        &:hover{
+            background: linear-gradient(darken($color,10%),darken($color,20%));
+        }
+        &:disabled{
+            background: $gray-color;
+            color: darken($color, 20%);
+            cursor: not-allowed;
+        }
+}

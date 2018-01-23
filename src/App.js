@@ -1,0 +1,22 @@
+import React, {Component} from 'react';
+import {Route, Switch} from 'react-router-dom';
+import Layout from './components/Layout/Layout';
+import ClothBuilder from './containers/ClothBuilder/ClothBuilder';
+import CheckOut from './containers/Checkout/Checkout';
+import Orders from './containers/Orders/Orders';
+
+class App extends Component {
+  render() {
+    return (
+      <Layout>
+        <Switch>
+          <Route path="/orders" component ={Orders} />
+          <Route path="/checkout" component ={CheckOut}/>
+          <Route path="/" exact component={ClothBuilder}/>
+        </Switch>
+      </Layout>
+    );
+  }
+}
+
+export default App;

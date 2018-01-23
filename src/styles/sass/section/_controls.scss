@@ -1,0 +1,44 @@
+.BuildControls{
+    display: flex;
+    flex-direction: column;
+    background: $blue-color;
+    margin: 3% 0;    
+    padding: 3% 0;
+    P{
+        text-align: center;
+        color: $white-color;
+        font-size: 1rem;
+        padding-bottom: 10px;
+    }
+
+    .BuildControl{
+        display: flex;
+        justify-content: space-between;
+        width: 40%;
+        margin: 0 auto;
+        align-items: center;
+        margin-bottom: 2%;
+        color: $white-color;        
+        font-size: 1rem;
+        & > * {
+            flex-basis: 30%;
+            text-align: left;
+        }
+        button{
+           @include button($blue-color);                  
+        }
+    }
+
+    .purchasable{
+        width: 40%;
+        margin: 0 auto;
+        @include button(darken($blue-color,7%));
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        &:enabled{
+           animation-name: scale;
+           animation-duration: 400ms;
+           animation-fill-mode: forwards;
+        }        
+    }
+}
