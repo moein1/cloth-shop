@@ -154,6 +154,7 @@ const mapStateToProps = state => {
     return {its: state.items, price: state.totalPrice}
 }
 
+
 const mapDispatchToProps = dispatch => {
     return {
         onItemsAdded: (itemName) => dispatch({type: actionTypes.ADD_ITEM, itemName: itemName, itemPrice: ITEM_PRICE[itemName]}),
