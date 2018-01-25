@@ -6,25 +6,27 @@ import ChekoutSummary from '../../components/Order/CheckoutSummary/CheckoutSumma
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from './ContactData/ContactData';
 
+import {connect} from 'react-redux';
 class Checkout extends Component {
     state={
-        items:{},
-        price:0
+        items:{}
     }
 
     componentDidMount(){
-        let query = quertString.parse(this.props.location.search);
-        for(let item in query){
-            if(item === 'price'){
-                this.setState({
-                    price :query[item]
-                })
-                delete query[item]
-            }                
-        }
-        this.setState({
-            items : query
-        })
+        // by using Redux we do not need to use this query string
+        //and we can easily map state to props and have the access to the state
+        // let query = quertString.parse(this.props.location.search);
+        // for(let item in query){
+        //     if(item === 'price'){
+        //         this.setState({
+        //             price :query[item]
+        //         })
+        //         delete query[item]
+        //     }                
+        // }
+        // this.setState({
+        //     items : query
+        // })
     }
    
     cancleCheckoutHandler= ()=>{
@@ -41,13 +43,21 @@ class Checkout extends Component {
                 <CheckoutSummary
                  cancelCheckout={this.cancleCheckoutHandler} 
                  continueCheckout={this.continueCheckoutHandler}
-                 items={this.state.items} ></CheckoutSummary>
+                 items={this.props.its} ></CheckoutSummary>
                  <Route path={this.props.match.path + '/contact-data'} 
-                // component={ContactData}
+                 component={ContactData}
+                //we redux we do not use render and we can 
+                //and pass the price and items 
                  render={(props)=><ContactData price={this.state.price} {...props}  items={this.state.items}/>} />
             </Aux>
         )
     }
 }
 
-export default Checkout;
+const mapStateToProps=state=>{
+    return{
+        its: state.items
+    }
+}
+
+export default connect(mapStateToProps)(Checkout);
