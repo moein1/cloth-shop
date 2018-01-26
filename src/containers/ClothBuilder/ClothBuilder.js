@@ -11,6 +11,7 @@ import axios from '../../axios-order';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import actionTypes from '../../store/actions/actionTypes';
+import action from '../../store/actions/index';
 
 const ITEM_PRICE = {
     bottom: 3.2,
