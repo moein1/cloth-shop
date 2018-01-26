@@ -5,7 +5,7 @@ import axios from '../../../axios-order';
 import spinner from '../../../components/UI/Spinner/Spinner';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
-import actionType from '../../../store/actions';
+import actionType from '../../../store/actions/actionTypes';
 class ContactData extends Component {
 
     orderFormHandler = (type, configType, configPlaceholder, value, required, valid, touched) => {

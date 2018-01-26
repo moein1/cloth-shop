@@ -10,7 +10,7 @@ import BackDrop from '../../components/UI/Backdrop/Backdrop';
 import axios from '../../axios-order';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import actionTypes from '../../store/actions';
+import actionTypes from '../../store/actions/actionTypes';
 
 const ITEM_PRICE = {
     bottom: 3.2,
