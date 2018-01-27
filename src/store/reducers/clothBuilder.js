@@ -1,11 +1,9 @@
 import actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    items: {
-        top: 0,
-        bottom:0
-    },
-    totalPrice: 4
+    items:null,
+    totalPrice: 4,
+    error : false
 }
 
 const reducer = (state = initialState, action) => {
@@ -28,15 +26,17 @@ const reducer = (state = initialState, action) => {
                 },
                 totalPrice : state.totalPrice - action.itemPrice
             }
-        case actionTypes.RESET_STATE :
-            console.log('we should reset the state after posting the data to server');
-            return {
+        case actionTypes.SET_ITEMS : 
+            return{
                 ...state,
-                items:{
-                    top:0,
-                    bottom:0
-                },
-                totalPrice : 4
+                items:action.items,
+                totalPrice : 4,
+                error : false
+            }
+        case actionTypes.FETCH_ITEMS_FAIL : 
+            return{
+                ...state,
+                error : true
             }
         default:
             return state;

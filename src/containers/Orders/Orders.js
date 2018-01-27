@@ -27,12 +27,10 @@ class Orders extends Component{
                 }
                 this.setState({
                     orders:orders
-                })
-                console.log(orders);
+                })               
                 this.loadingHandler(false);
             }
         ).catch(error=>{
-            console.log(error);
             this.loadingHandler(false);
         })
     }

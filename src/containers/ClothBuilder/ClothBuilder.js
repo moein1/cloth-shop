@@ -19,18 +19,12 @@ const ITEM_PRICE = {
 class ClothBuilder extends Component {
 
     state = {
-        // items: null,
         totalPrice: 4,
-        purchasing: false,
-        loading: false,
-        error: null
+        purchasing: false
     }
 
     componentDidMount() {
-        // axios     .get('/items.json')     .then(response => {         if (response)
-        //       this.setState({items: response.data})     })     .catch(error => {
-        // this.setState({error: error});         console.log('eror happend in the get
-        // data' , this.state.error);     });
+        this.props.onItemInit();
     }
 
     updatePurchseState(items) {
@@ -41,34 +35,9 @@ class ClothBuilder extends Component {
             })
             .reduce((sum, el) => {
                 return sum + el;
-            }, 0)        
-            return sum > 0;   
-    }
-
-    addItemHandler = (type) => {
-        const oldCount = this.props.its[type];
-        const updatedItem = {
-            ...this.props.its
-        };
-        updatedItem[type] = oldCount + 1;
-        this.setState({
-            items: updatedItem,
-            totalPrice: this.props.price + ITEM_PRICE[type]
-        })
-        this.updatePurchseState(updatedItem);
-    }
-
-    removeItemHandler = (type) => {
-        const updatedItem = {
-            ...this.props.its
-        }
-        updatedItem[type] = this.props.its[type] - 1;
-        this.setState({
-            items: updatedItem,
-            totalPrice: this.props.price - ITEM_PRICE[type]
-        })
-        this.updatePurchseState(updatedItem);
-    }
+            }, 0)
+        return sum > 0;
+    }       
 
     purchaseHandler = () => {
         this.setState({purchasing: true})
@@ -78,20 +47,6 @@ class ClothBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        //alert('we would like to continue!');
-
-        // const queryParams = [];
-        // for (let i in this.props.its) {
-        //     queryParams.push(`${encodeURIComponent(i)}=${encodeURIComponent(this.props.its[i])}`);
-        // }
-        // queryParams.push(`price=${this.props.price.toFixed(2)}`)
-        // var queryString = queryParams.join('&');
-        // this
-        //     .props
-        //     .history
-        //     .push({pathname: '/checkout', search: `?${queryString}`})
-
-        //by using redux we do not need to pass items to the ceckout 
         this.props.history.push('/checkout');
     }
 
@@ -106,8 +61,8 @@ class ClothBuilder extends Component {
 
         let summary = null;
 
-        let cloth = this.state.error
-            ? <p>{this.state.error}</p>
+        let cloth = this.props.error
+            ? <p>{this.props.error}</p>
             : <Spinner/>;
 
         if (this.props.its) {
@@ -134,10 +89,6 @@ class ClothBuilder extends Component {
                 totalPrice={this.props.price}></OrderSummary>
         }
 
-        if (this.state.loading) {
-            summary = <Spinner/>
-        }
-
         return (
             <Aux>
                 <BackDrop clicked={this.modalClosed} show={this.state.purchasing}/>
@@ -151,14 +102,16 @@ class ClothBuilder extends Component {
 }
 
 const mapStateToProps = state => {
-    return {its: state.items, price: state.totalPrice}
+    return {its: state.items, 
+        price: state.totalPrice,
+        error : state.error }
 }
-
 
 const mapDispatchToProps = dispatch => {
     return {
-        onItemsAdded : (itemName) =>dispatch(action.addItem(itemName,ITEM_PRICE[itemName])),
-        onItemRemoved : (itemName) => dispatch(action.removeItem(itemName,ITEM_PRICE[itemName]))
+        onItemsAdded: (itemName) => dispatch(action.addItem(itemName, ITEM_PRICE[itemName])),
+        onItemRemoved: (itemName) => dispatch(action.removeItem(itemName, ITEM_PRICE[itemName])),
+        onItemInit: () => dispatch(action.initItems())
     }
 }
 
