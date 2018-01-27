@@ -25,7 +25,7 @@ const clothBuilder = {
     },
     fetchItemsFail : ()=>{
         return{
-            type : actionType.SET_ITEMS_FAIL
+            type : actionType.FETCH_ITEMS_FAIL
         }
     }
 
