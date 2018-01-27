@@ -1,9 +1,11 @@
+import actionType from './actionTypes';
+
 const clothBuilder = {
-    addItem : ()=>{
-
+    addItem: (name, price) => {
+        return {type: actionType.ADD_ITEM, itemName: name, itemPrice: price}
     },
-    removeItem : () =>{
-
+    removeItem: (name, price) => {
+        return {type: actionType.REMOVE_ITEM, itemName: name, itemPrice: price}
     }
 }
 

@@ -10,7 +10,6 @@ import BackDrop from '../../components/UI/Backdrop/Backdrop';
 import axios from '../../axios-order';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import actionTypes from '../../store/actions/actionTypes';
 import action from '../../store/actions/index';
 
 const ITEM_PRICE = {
@@ -158,8 +157,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onItemsAdded: (itemName) => dispatch({type: actionTypes.ADD_ITEM, itemName: itemName, itemPrice: ITEM_PRICE[itemName]}),
-        onItemRemoved: (itemName) => dispatch({type: actionTypes.REMOVE_ITEM, itemName: itemName, itemPrice: ITEM_PRICE[itemName]})
+        onItemsAdded : (itemName) =>dispatch(action.addItem(itemName,ITEM_PRICE[itemName])),
+        onItemRemoved : (itemName) => dispatch(action.removeItem(itemName,ITEM_PRICE[itemName]))
     }
 }
 
