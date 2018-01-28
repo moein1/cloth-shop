@@ -102,9 +102,9 @@ class ClothBuilder extends Component {
 }
 
 const mapStateToProps = state => {
-    return {its: state.items, 
-        price: state.totalPrice,
-        error : state.error }
+    return {its: state.clt.items, 
+        price: state.clt.totalPrice,
+        error : state.clt.error }
 }
 
 const mapDispatchToProps = dispatch => {
