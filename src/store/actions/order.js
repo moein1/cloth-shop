@@ -4,7 +4,8 @@ import axios from '../../axios-order';
 const orders = {
     fetchOrders : ()=>{
         return dispatch =>{
-            axios.get('/orders.json').then(response=>{
+            dispatch(orders.setOrderInit());
+            axios.get('/orders.json1').then(response=>{
                 const orderArray=[];            
                 for(let key in response.data){
                     orderArray.push({...response.data[key] , id:key});
@@ -13,6 +14,11 @@ const orders = {
             }).catch(error=>{
                 dispatch(orders.setOrderFail());
             })
+        }
+    },
+    setOrderInit : ()=>{
+        return{
+            type : actionType.SET_ORDERS_START
         }
     },
     setOrder : (orders) =>{
