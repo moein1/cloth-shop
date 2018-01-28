@@ -34,11 +34,8 @@ const reducer = (state = initialState, action) => {
                 totalPrice : 4,
                 error : false
             }
-        case actionTypes.FETCH_ITEMS_FAIL : 
-            return{
-                ...state,
-                error : true
-            }
+        case actionTypes.FETCH_ITEMS_FAIL :
+            return updatedObject(state, {error : true});           
         default:
             return state;
     }
