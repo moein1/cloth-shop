@@ -1,22 +1,22 @@
-import actionTypes  from '../actions/actionTypes';
+import actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    orders:[],
-    error : false
+    orders: [],
+    error: false
 }
 
-const reducer =(state = initialState , action)=>{
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.SET_ORDERS:
-            return{
+            return {
                 ...state,
-                orders : action.orders,
-                error : false
+                orders: action.orders,
+                error: false
             }
         case actionTypes.SET_ORDERS_FAIL:
-            return{
+            return {
                 ...state,
-                error : true
+                error: true
             }
         default:
             return state;

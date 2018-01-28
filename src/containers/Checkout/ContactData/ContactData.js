@@ -5,7 +5,9 @@ import axios from '../../../axios-order';
 import spinner from '../../../components/UI/Spinner/Spinner';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
-import actionType from '../../../store/actions/actionTypes';
+import action from '../../../store/actions/index';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+
 class ContactData extends Component {
 
     orderFormHandler = (type, configType, configPlaceholder, value, required, valid, touched) => {
@@ -53,8 +55,7 @@ class ContactData extends Component {
                 valid: true
             }
         },
-        formIsValid: false,
-        loading: false
+        formIsValid: false
     }
 
     checkValidity = (rules, value) => {
@@ -67,7 +68,6 @@ class ContactData extends Component {
 
     orderHandler = (event) => {
         event.preventDefault();
-        this.setState({loading: true});
         const formData = {};
         for (let key in this.state.orderForm) {
             formData[key] = this.state.orderForm[key].value;
@@ -77,21 +77,7 @@ class ContactData extends Component {
             price: (+ this.props.price).toFixed(2),
             orderData: formData
         }
-        axios
-            .post('/orders.json', order)
-            .then(response => {
-                this.setState({loading: false});
-                this.props.onResetState;
-                this
-                    .props
-                    .history
-                    .push('/')
-                //we should reset the items and price that has been posted to server
-
-            })
-            .catch(error => {
-                this.setState({loading: false})
-            })
+        this.props.onPurchaseCloth(order);       
     }
 
     inputChangedHandler = (event, eventIdentifier) => {
@@ -140,7 +126,7 @@ class ContactData extends Component {
                 </form>
             </div>
         );
-        if (this.state.loading) 
+        if (this.props.loading) 
             form = <Spinner/>
         return (
             <div>
@@ -151,14 +137,17 @@ class ContactData extends Component {
 }
 
 const mapStateToProps = state => {
-    return {its: state.items, price: state.totalPrice}
+    return {its: state.clt.items,
+           price: state.clt.totalPrice,
+            erorr: state.purch.error,
+            loading : state.purch.loading }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onResetState: () => dispatch({type : actionType.RESET_STATE})
+       onPurchaseCloth : (orders)=> dispatch(action.purchseCloth(orders)) 
     }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactData);
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler( ContactData ,axios ));

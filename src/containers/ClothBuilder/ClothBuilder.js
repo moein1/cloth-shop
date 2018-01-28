@@ -47,6 +47,7 @@ class ClothBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
+        this.props.onPurchaseInit();
         this.props.history.push('/checkout');
     }
 
@@ -111,7 +112,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onItemsAdded: (itemName) => dispatch(action.addItem(itemName, ITEM_PRICE[itemName])),
         onItemRemoved: (itemName) => dispatch(action.removeItem(itemName, ITEM_PRICE[itemName])),
-        onItemInit: () => dispatch(action.initItems())
+        onItemInit: () => dispatch(action.initItems()),
+        onPurchaseInit : ()=>dispatch(action.purchaseInit())
     }
 }
 
