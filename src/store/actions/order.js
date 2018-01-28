@@ -5,7 +5,7 @@ const orders = {
     fetchOrders : ()=>{
         return dispatch =>{
             dispatch(orders.setOrderInit());
-            axios.get('/orders.json1').then(response=>{
+            axios.get('/orders.json').then(response=>{
                 const orderArray=[];            
                 for(let key in response.data){
                     orderArray.push({...response.data[key] , id:key});
