@@ -5,7 +5,7 @@ import Button from '../../UI/Button/Button';
 const checkoutSummary = (props) => {
     return (
         <div>
-            <h1>We hope you enjoy your burger!</h1>
+            <h1>We hope you like your new cloth!</h1>
             <div>
                 <Cloth items= {props.items} />
             </div>

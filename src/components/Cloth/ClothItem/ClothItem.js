@@ -3,19 +3,19 @@ import propTypes from 'prop-types';
 
 class ClothItem  extends Component{
    render(){
-    let ingredient =<div>this is ingredien</div>
+    let item =<div>this is item</div>
        switch (this.props.type) {
            case ('bottom'):
-               ingredient =<div>this is bottom </div>
+               item =<div>this is bottom </div>
                break;
             case ('top'):
-                ingredient =<div>this is top</div>
+                item =<div>this is top</div>
                 break;
            default:
-               ingredient = null
+               item = null
                break;
        }
-      return ingredient;
+      return item;
    }
 }
 
