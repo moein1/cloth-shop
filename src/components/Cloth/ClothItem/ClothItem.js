@@ -1,12 +1,12 @@
 import React ,{Component} from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 
 class ClothItem  extends Component{
    render(){
     let ingredient =<div>this is ingredien</div>
        switch (this.props.type) {
            case ('bottom'):
-               ingredient =<div>this is bottom ingredien</div>
+               ingredient =<div>this is bottom </div>
                break;
             case ('top'):
                 ingredient =<div>this is top</div>
@@ -19,8 +19,8 @@ class ClothItem  extends Component{
    }
 }
 
-ClothItem.PropTypes = {
-    type :PropTypes.string.isRequired
+ClothItem.propTypes = {
+    type :propTypes.string.isRequired
 
 }
 
