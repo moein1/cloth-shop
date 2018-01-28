@@ -7,33 +7,45 @@ const initialState = {
     error : false
 }
 
+const addItem = (state,action)=> {
+    return {
+        ...state,
+        items:{
+            ...state.items,
+            [action.itemName] : state.items[action.itemName] + 1
+        },
+        totalPrice : state.totalPrice + action.itemPrice
+    }
+}
+
+const removeItem = (state , action)=>{
+    return {
+        ...state,
+        items:{
+            ...state.items,
+            [action.itemName] : state.items[action.itemName] - 1
+        },
+        totalPrice : state.totalPrice - action.itemPrice
+    }
+}
+
+const setItem = (state , action)=>{
+    return{
+        ...state,
+        items:action.items,
+        totalPrice : 4,
+        error : false
+    }
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_ITEM :
-            return {
-                ...state,
-                items:{
-                    ...state.items,
-                    [action.itemName] : state.items[action.itemName] + 1
-                },
-                totalPrice : state.totalPrice + action.itemPrice
-            }
+            return addItem(state,action);
         case actionTypes.REMOVE_ITEM :
-            return {
-                ...state,
-                items:{
-                    ...state.items,
-                    [action.itemName] : state.items[action.itemName] - 1
-                },
-                totalPrice : state.totalPrice - action.itemPrice
-            }
+            return removeItem(state , action);
         case actionTypes.SET_ITEMS : 
-            return{
-                ...state,
-                items:action.items,
-                totalPrice : 4,
-                error : false
-            }
+            return setItem(state , action);
         case actionTypes.FETCH_ITEMS_FAIL :
             return updatedObject(state, {error : true});           
         default:
