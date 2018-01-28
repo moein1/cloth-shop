@@ -1,4 +1,6 @@
 import actionTypes from '../actions/actionTypes';
+import {updatedObject} from '../utility';  
+
 
 const initialState = {
     orders: [],
@@ -9,10 +11,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.SET_ORDERS_START:
-            return{
-                ...state,
-                loading : true
-            }
+            return updatedObject(state , {loading : true} )
         case actionTypes.SET_ORDERS:
             return {
                 ...state,
