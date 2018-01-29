@@ -63,6 +63,7 @@ class ContactData extends Component {
 
         if (rules.required) 
             isValid = value.trim() !== '' && isValid;
+        
         return isValid;
     }
 
