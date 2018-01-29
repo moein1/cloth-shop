@@ -21,11 +21,13 @@ import axios from 'axios';
         }
 
     },
-    auth : (email , password) =>{
+    auth : (email , password , isSignup ) =>{
        return dispatch=>{
             dispatch(auth.authStart());
             const API_KEY = 'AIzaSyAvR9dLWpN31vc6ItrAoYf7F05Qqr7-KFQ';
-            const url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${API_KEY}`;
+            let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${API_KEY}`;
+            if(!isSignup) 
+                url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${API_KEY}`;
             const authData = {
                 email : email,
                 password : password,
