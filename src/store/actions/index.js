@@ -1,11 +1,13 @@
 import clothBuilderAction from './clothBuilder';
 import ordersAction from './order';
-import purchaseActin from './purchase';
+import purchaseAction from './purchase';
+import authAction from './auth';
 
 const action =( {
     ...clothBuilderAction,
     ...ordersAction,
-    ...purchaseActin
+    ...purchaseAction,
+    ...authAction
 })
 
 export default action;

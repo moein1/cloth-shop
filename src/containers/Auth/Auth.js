@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
+import actions from '../../store/actions';
 
 class Auth extends Component {
 
@@ -38,7 +40,7 @@ class Auth extends Component {
             var re = /\S+@\S+\.\S+/;
             return re.test(value) && isValid;
         }
-        if(rules.minLenght){
+        if (rules.minLenght) {
             isValid = value.length > rules.minLenght && isValid;
         }
 
@@ -56,6 +58,13 @@ class Auth extends Component {
             }
         }
         this.setState({controls: updatedControls})
+    }
+
+    authSubmit = (event) => {
+        event.preventDefault();
+        this
+            .props
+            .onAuth(this.state.controls.email.value, this.state.controls.password.value);
     }
 
     render() {
@@ -81,7 +90,7 @@ class Auth extends Component {
 
         return (
             <div>
-                <form action="" className="contact">
+                <form action="" onSubmit={this.authSubmit} className="contact">
                     {form}
                     <Button btnType="Success">SUBMIT</Button>
                 </form>
@@ -90,4 +99,10 @@ class Auth extends Component {
     }
 }
 
-export default Auth;
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuth: (email, password) => dispatch(actions.auth(email, password))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Auth);
