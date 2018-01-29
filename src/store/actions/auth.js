@@ -7,10 +7,11 @@ import axios from 'axios';
             type : actionType.AUTH_START
         }
     },
-    authSuccess : (authData)=>{
+    authSuccess : (token , userId)=>{
         return{
             type : actionType.AUTH_SUCCESS,
-            authData : authData
+            idToken : token,
+            userId : userId
         }
 
     },
@@ -35,7 +36,7 @@ import axios from 'axios';
             }
             axios.post(url ,authData).then(response=>{
                 console.log('response from firebase in action auth ' , response);
-                dispatch(auth.authSuccess(response.data));
+                dispatch(auth.authSuccess(response.data.idToken , response.data.localId));
             }).catch(error=>{
                 dispatch(auth.authFail(error));
             })
