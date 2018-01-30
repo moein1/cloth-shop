@@ -9,7 +9,7 @@ const toolbar = (props) => (
         <Menu clicked={props.menuClicked} />
         <Logo></Logo>
         <nav>
-            <NavigationItems/>           
+            <NavigationItems auth = {props.auth} />           
         </nav>
     </header>
 )

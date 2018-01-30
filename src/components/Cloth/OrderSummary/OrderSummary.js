@@ -1,4 +1,5 @@
 import React ,{Component} from 'react';
+import {connect} from 'react-redux';
 import Aux from '../../../hoc/auxel';
 import Button from '../../UI/Button/Button';
 
@@ -6,6 +7,7 @@ class OrderSummary extends Component{
     componentWillUpdate(){
         console.log('Order summary will upated');
     }   
+   
     render(){
         const itemSummary = Object
         .keys(this.props.items)
@@ -27,8 +29,9 @@ class OrderSummary extends Component{
                     <p>Total price : <strong>{this.props.totalPrice.toFixed(1)}</strong></p>
                     <p>Continue to Checkout?</p>
                     <button onClick={this.props.closeModal} className="less" >Cancel</button>
-                    <button onClick={this.props.continuePurchase} >Continue</button>
-                    {/* <Button btnType="Success">New </Button> */}
+                    {this.props.authorized ?  
+                    <button onClick ={this.props.continuePurchase} >Continue</button> :
+                    <button onClick ={this.props.continueToSignup}>Signup to continue</button> }
                 </div>    
             </Aux>
         )
@@ -36,5 +39,10 @@ class OrderSummary extends Component{
     }
 }
 
+const mapStateToProps = state =>{
+    return{
+        authorized : state.auth.token != null
+    }
+}
 
-export default OrderSummary;
+export default connect(mapStateToProps)(OrderSummary);

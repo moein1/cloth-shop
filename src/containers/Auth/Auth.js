@@ -7,6 +7,7 @@ import actions from '../../store/actions';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import axios from 'axios';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import { Redirect } from 'react-router-dom';
 
 class Auth extends Component {
 
@@ -117,6 +118,12 @@ class Auth extends Component {
 
         if(this.props.loading)
                 authForm = <Spinner />
+        if(this.props.authenticated){
+            console.log('building in auth ', this.props.building);
+            authForm = this.props.building ?
+            <Redirect to = "/checkout" /> :
+            <Redirect to = "/" />
+        }          
 
         return (
             <div>
@@ -135,7 +142,9 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
     return {
         loading: state.auth.loading,
-        error : state.auth.error
+        error : state.auth.error,
+        authenticated : state.auth.token !=null,
+        building : state.clt.building
     }
 }
 

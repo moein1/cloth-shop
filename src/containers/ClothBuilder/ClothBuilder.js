@@ -51,6 +51,11 @@ class ClothBuilder extends Component {
         this.props.history.push('/checkout');
     }
 
+    continueToSignupHandler = ()=>{
+        this.props.onPurchaseInit();
+        this.props.history.push('/auth');
+    }
+
     render() {
         const disabledInfo = {
             ...this.props.its
@@ -86,6 +91,7 @@ class ClothBuilder extends Component {
             summary = <OrderSummary
                 closeModal={this.modalClosed}
                 continuePurchase={this.purchaseContinueHandler}
+                continueToSignup = {this.continueToSignupHandler}
                 items={this.props.its}
                 totalPrice={this.props.price}></OrderSummary>
         }
@@ -105,7 +111,8 @@ class ClothBuilder extends Component {
 const mapStateToProps = state => {
     return {its: state.clt.items, 
         price: state.clt.totalPrice,
-        error : state.clt.error }
+        error : state.clt.error,
+        authorized : state.auth.token != null }
 }
 
 const mapDispatchToProps = dispatch => {
