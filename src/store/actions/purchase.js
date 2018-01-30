@@ -3,10 +3,10 @@ import axios from '../../axios-order';
 
 
 const purchase = {
-    purchseCloth : (orders)=>{
+    purchseCloth : (orders , token )=>{
         return dispatch=>{
             dispatch(purchase.purchaseClothStart());
-            axios.post('/orders.json' , orders).
+            axios.post(`/orders.json?auth=${token}` , orders).
             then(response=>{
                 dispatch(purchase.purchaseClothSuccess(response.data.name,orders));
             }).catch(error=>{

@@ -11,7 +11,8 @@ import axios from 'axios';
         return{
             type : actionType.AUTH_SUCCESS,
             idToken : token,
-            userId : userId
+            userId : userId,
+            logout : false
         }
 
     },
@@ -21,6 +22,19 @@ import axios from 'axios';
             error : error
         }
 
+    },
+    checkAuthTimeout :(expirationTime)=>{
+        return dispatch =>{
+            setTimeout(()=>{
+                dispatch(auth.logout());
+            },expirationTime * 1000);
+        }
+    },
+    logout : ()=>{
+        return{
+        type : actionType.AUTH_LOGOUT,
+        logout : true
+        }
     },
     auth : (email , password , isSignup ) =>{
        return dispatch=>{
@@ -34,11 +48,16 @@ import axios from 'axios';
                 password : password,
                 returnSecureToken : true
             }
-            axios.post(url ,authData).then(response=>{
+           
+            axios.post(url ,authData)
+            .then(response=>{
                 console.log('response from firebase in action auth ' , response);
-                dispatch(auth.authSuccess(response.data.idToken , response.data.localId));
-            }).catch(error=>{
-                dispatch(auth.authFail(error));
+               dispatch(auth.authSuccess(response.data.idToken , response.data.localId));
+               dispatch(auth.checkAuthTimeout(response.data.expiresIn));
+            })
+            .catch(error=>{
+                console.log('error in dispatch ' , error);
+               dispatch(auth.authFail(error));
             })
         }
     }

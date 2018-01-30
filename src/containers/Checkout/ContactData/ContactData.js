@@ -78,7 +78,7 @@ class ContactData extends Component {
             price: (+ this.props.price).toFixed(2),
             orderData: formData
         }
-        this.props.onPurchaseCloth(order);       
+        this.props.onPurchaseCloth(order , this.props.token );       
     }
 
     inputChangedHandler = (event, eventIdentifier) => {
@@ -141,12 +141,14 @@ const mapStateToProps = state => {
     return {its: state.clt.items,
            price: state.clt.totalPrice,
             erorr: state.purch.error,
-            loading : state.purch.loading }
+            loading : state.purch.loading ,
+            token : state.auth.token
+        }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-       onPurchaseCloth : (orders)=> dispatch(action.purchseCloth(orders)) 
+       onPurchaseCloth : (orders , token )=> dispatch(action.purchseCloth(orders , token )) 
     }
 }
 
