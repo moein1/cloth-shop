@@ -43,13 +43,11 @@ const reducer = (state = initialState, action) => {
         case actionType.AUTH_START:
             return authStart(state, action);
         case actionType.AUTH_SUCCESS:
-            console.log(action);
             return authSuccess(state, action);
         case actionType.AUTH_FAIL:
             return authFail(state, action);
         case actionType.AUTH_LOGOUT:
-            console.log('logout happend' , action);
-            return authLogout(state , action);
+            return authLogout(state , action);   
         default:
             return state;
     }

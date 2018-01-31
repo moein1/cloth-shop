@@ -23,8 +23,10 @@ class ClothBuilder extends Component {
         purchasing: false
     }
 
-    componentDidMount() {
-        this.props.onItemInit();
+    componentDidMount() {        
+        this
+            .props
+            .onItemInit();
     }
 
     updatePurchseState(items) {
@@ -37,7 +39,7 @@ class ClothBuilder extends Component {
                 return sum + el;
             }, 0)
         return sum > 0;
-    }       
+    }
 
     purchaseHandler = () => {
         this.setState({purchasing: true})
@@ -47,13 +49,23 @@ class ClothBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        this.props.onPurchaseInit();
-        this.props.history.push('/checkout');
+        this
+            .props
+            .onPurchaseInit();
+        this
+            .props
+            .history
+            .push('/checkout');
     }
 
-    continueToSignupHandler = ()=>{
-        this.props.onPurchaseInit();
-        this.props.history.push('/auth');
+    continueToSignupHandler = () => {
+        this
+            .props
+            .onPurchaseInit();
+        this
+            .props
+            .history
+            .push('/auth');
     }
 
     render() {
@@ -91,7 +103,7 @@ class ClothBuilder extends Component {
             summary = <OrderSummary
                 closeModal={this.modalClosed}
                 continuePurchase={this.purchaseContinueHandler}
-                continueToSignup = {this.continueToSignupHandler}
+                continueToSignup={this.continueToSignupHandler}
                 items={this.props.its}
                 totalPrice={this.props.price}></OrderSummary>
         }
@@ -109,10 +121,12 @@ class ClothBuilder extends Component {
 }
 
 const mapStateToProps = state => {
-    return {its: state.clt.items, 
+    return {
+        its: state.clt.items,
         price: state.clt.totalPrice,
-        error : state.clt.error,
-        authorized : state.auth.token != null }
+        error: state.clt.error,
+        authorized: state.auth.token != null
+    }
 }
 
 const mapDispatchToProps = dispatch => {
@@ -120,7 +134,8 @@ const mapDispatchToProps = dispatch => {
         onItemsAdded: (itemName) => dispatch(action.addItem(itemName, ITEM_PRICE[itemName])),
         onItemRemoved: (itemName) => dispatch(action.removeItem(itemName, ITEM_PRICE[itemName])),
         onItemInit: () => dispatch(action.initItems()),
-        onPurchaseInit : ()=>dispatch(action.purchaseInit())
+        onPurchaseInit: () => dispatch(action.purchaseInit()),
+        onSetToken: () => dispatch(action.setToken())
     }
 }
 
