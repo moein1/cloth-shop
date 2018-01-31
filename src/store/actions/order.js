@@ -2,10 +2,10 @@ import actionType from './actionTypes';
 import axios from '../../axios-order';
 
 const orders = {
-    fetchOrders : (token)=>{
+    fetchOrders : (token ,userId )=>{
         return dispatch =>{
             dispatch(orders.setOrderInit());
-            axios.get(`/orders.json?auth=${token}`).then(response=>{
+            axios.get(`/orders.json?auth=${token}&orderBy="userId"&equalTo="${userId}"`).then(response=>{
                 const orderArray=[];            
                 for(let key in response.data){
                     orderArray.push({...response.data[key] , id:key});
