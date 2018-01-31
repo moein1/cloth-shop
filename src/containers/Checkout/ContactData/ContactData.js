@@ -76,9 +76,10 @@ class ContactData extends Component {
         const order = {
             items: this.props.its,
             price: (+ this.props.price).toFixed(2),
-            orderData: formData
+            orderData: formData,
+            userId : this.props.userId
         }
-        this.props.onPurchaseCloth(order , this.props.token );       
+        this.props.onPurchaseCloth(order , this.props.token);       
     }
 
     inputChangedHandler = (event, eventIdentifier) => {
@@ -142,7 +143,8 @@ const mapStateToProps = state => {
            price: state.clt.totalPrice,
             erorr: state.purch.error,
             loading : state.purch.loading ,
-            token : state.auth.token
+            token : state.auth.token ,
+            userId : state.auth.userId
         }
 }
 
