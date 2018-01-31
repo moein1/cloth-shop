@@ -18,7 +18,7 @@ class Layout extends Component{
         return(
             <Aux>
                 <Toolbar auth={this.props.auth} menuClicked={this.sideDrawerHandler}></Toolbar>
-                <SideDrawer clicked={this.sideDrawerHandler}  open={this.state.openSidedrawer} />
+                <SideDrawer auth={this.props.auth} clicked={this.sideDrawerHandler}  open={this.state.openSidedrawer} />
                 <main>
                     {this.props.children}
                 </main>

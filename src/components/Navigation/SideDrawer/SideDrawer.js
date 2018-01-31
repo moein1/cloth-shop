@@ -10,7 +10,7 @@ const sideDrawer =(props) =>{
     return(
         <Aux>
         <Backdrop show={props.open}  clicked={props.clicked} />
-        <div  className={ClassName2}>           
+        <div  className={ClassName2} onClick={props.clicked} >           
             <Logo/>
             <nav>
                 <NavigationItems auth = {props.auth} />
