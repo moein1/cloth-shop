@@ -10,25 +10,7 @@ import axios from 'axios';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import {formElementCreator ,checkValidity } from '../../store/utility';
 
-class Auth extends Component {
-
-    authFormHandler = (type, configType, configPlaceholder, value, required, isEmail, valid, touched, minLenght) => {
-        return {
-            elementType: type,
-            elementConfig: {
-                type: configType,
-                placeholder: configPlaceholder
-            },
-            value: value,
-            validation: {
-                required: required,
-                isEmail: isEmail,
-                minLenght: minLenght
-            },
-            valid: valid,
-            touched: touched
-        };
-    }
+class Auth extends Component {    
 
     state = {
         controls: {
@@ -106,7 +88,6 @@ class Auth extends Component {
         if(this.props.loading)
                 authForm = <Spinner />
         if(this.props.authenticated){
-            console.log('building in auth ', this.props.building);
             authForm = this.props.building ?
             <Redirect to = "/checkout" /> :
             <Redirect to = "/" />

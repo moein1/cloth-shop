@@ -3,7 +3,6 @@ import NavigationItem from './NavigationItem/NavigationItem';
 
 class NavigationItems extends Component{
     componentDidMount(){
-        console.log('authentication is ' , this.props.auth);
     }
     render(){
         const authentication = this.props.auth ? 

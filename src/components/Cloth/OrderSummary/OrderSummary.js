@@ -3,10 +3,7 @@ import {connect} from 'react-redux';
 import Aux from '../../../hoc/auxel';
 import Button from '../../UI/Button/Button';
 
-class OrderSummary extends Component{
-    componentWillUpdate(){
-        console.log('Order summary will upated');
-    }   
+class OrderSummary extends Component{      
    
     render(){
         const itemSummary = Object

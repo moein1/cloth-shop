@@ -12,7 +12,6 @@ import withErrorHandler from './hoc/withErrorHandler/withErrorHandler';
 
 class App extends Component {
   componentDidMount(){
-    console.log('componetDidMount in the App');
     if (localStorage.getItem('token') && localStorage.getItem('userId')) 
             this.props.onSetToken();
   }
