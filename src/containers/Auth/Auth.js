@@ -8,7 +8,7 @@ import actions from '../../store/actions';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import axios from 'axios';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import {formElementCreator} from '../../store/utility';
+import {formElementCreator ,checkValidity } from '../../store/utility';
 
 class Auth extends Component {
 
@@ -33,33 +33,19 @@ class Auth extends Component {
     state = {
         controls: {
             email: formElementCreator('input', 'email', 'Email', '', true, true, false, false),
-            password: formElementCreator('input', 'password', 'Password', '', true, false, false, 6)
+            password: formElementCreator('input', 'password', 'Password', '', true,false, false, false, 6)
         },
         isSignup: true
     }
 
-    checkValidity = (rules, value) => {
-        let isValid = true;
-        if (rules.required) 
-            isValid = value.trim() !== '' && isValid;
-        if (rules.isEmail) {
-            var re = /\S+@\S+\.\S+/;
-            return re.test(value) && isValid;
-        }
-        if (rules.minLenght) {
-            isValid = value.length > rules.minLenght && isValid;
-        }
-
-        return isValid;
-    }
-
+    
     inputChangeHandler = (event, controlName) => {
         const updatedControls = {
             ...this.state.controls,
             [controlName]: {
                 ...this.state.controls[controlName],
                 value: event.target.value,
-                valid: this.checkValidity(this.state.controls[controlName].validation, event.target.value),
+                valid: checkValidity(this.state.controls[controlName].validation, event.target.value),
                 touched: true
             }
         }

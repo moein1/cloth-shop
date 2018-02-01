@@ -7,13 +7,13 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import action from '../../../store/actions/index';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
-import {formElementCreator} from '../../../store/utility';
+import {formElementCreator ,checkValidity } from '../../../store/utility';
 
 class ContactData extends Component {
    
     state = {
         orderForm: {
-            name: formElementCreator('input', 'text', 'Your Name', '', true, false, false, 4),
+            name: formElementCreator('input', 'text', 'Your Name', '', true,false, false, false, 4),
             email: formElementCreator('input', 'email', 'Email', '', true, true, false, false),
             street: formElementCreator('input', 'text', 'Street', '', true, false, false),
             country: formElementCreator('input', 'text', 'Country', '', true, false, false),
@@ -41,22 +41,7 @@ class ContactData extends Component {
             }
         },
         formIsValid: false
-    }
-
-    checkValidity = (rules, value) => {
-        let isValid = true;
-        if (rules.required) 
-            isValid = value.trim() !== '' && isValid;
-        if (rules.isEmail) {
-            var re = /\S+@\S+\.\S+/;
-            return re.test(value) && isValid;
-        }
-        if (rules.minLenght) {
-            isValid = value.length >= rules.minLenght && isValid;
-        }
-
-        return isValid;
-    }
+    }   
 
     orderHandler = (event) => {
         event.preventDefault();
@@ -84,7 +69,7 @@ class ContactData extends Component {
         };
         updatedFormElement.value = event.target.value;
         updatedFormElement.touched = true;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.validation, event.target.value);
+        updatedFormElement.valid = checkValidity(updatedFormElement.validation, event.target.value);
         updatedOrderForm[eventIdentifier] = updatedFormElement;
 
         let formIsValid = true;
