@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
@@ -7,7 +8,7 @@ import actions from '../../store/actions';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import axios from 'axios';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import { Redirect } from 'react-router-dom';
+import {formElementCreator} from '../../store/utility';
 
 class Auth extends Component {
 
@@ -31,8 +32,8 @@ class Auth extends Component {
 
     state = {
         controls: {
-            email: this.authFormHandler('input', 'email', 'Email', '', true, true, false, false, 5),
-            password: this.authFormHandler('input', 'password', 'Password', '', true, false, false, false, 6)
+            email: formElementCreator('input', 'email', 'Email', '', true, true, false, false),
+            password: formElementCreator('input', 'password', 'Password', '', true, false, false, 6)
         },
         isSignup: true
     }

@@ -7,33 +7,18 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import action from '../../../store/actions/index';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import {formElementCreator} from '../../../store/utility';
 
 class ContactData extends Component {
-
-    orderFormHandler = (type, configType, configPlaceholder, value, required, valid, touched) => {
-        return {
-            elementType: type,
-            elementConfig: {
-                type: configType,
-                placeholder: configPlaceholder
-            },
-            value: value,
-            validation: {
-                required: required
-            },
-            valid: valid,
-            touched: touched
-        };
-    }
-
+   
     state = {
         orderForm: {
-            name: this.orderFormHandler('input', 'text', 'Your Name', '', true, false, false),
-            email: this.orderFormHandler('input', 'email', 'Email', '', true, false, false),
-            street: this.orderFormHandler('input', 'text', 'Street', '', true, false, false),
-            country: this.orderFormHandler('input', 'text', 'Country', '', true, false, false),
-            zipCode: this.orderFormHandler('input', 'text', 'Zip Code', '', true, false, false),
-            //  Comment : this.orderFormHandler('textarea' ,'text', 'Comment','' ),
+            name: formElementCreator('input', 'text', 'Your Name', '', true, false, false, 4),
+            email: formElementCreator('input', 'email', 'Email', '', true, true, false, false),
+            street: formElementCreator('input', 'text', 'Street', '', true, false, false),
+            country: formElementCreator('input', 'text', 'Country', '', true, false, false),
+            zipCode: formElementCreator('input', 'text', 'Zip Code', '', true, false, false),
+            //  Comment : formElementCreator('textarea' ,'text', 'Comment','' ),
             deliveryMethod: {
                 elementType: 'select',
                 elementConfig: {
@@ -60,10 +45,16 @@ class ContactData extends Component {
 
     checkValidity = (rules, value) => {
         let isValid = true;
-
         if (rules.required) 
             isValid = value.trim() !== '' && isValid;
-        
+        if (rules.isEmail) {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(value) && isValid;
+        }
+        if (rules.minLenght) {
+            isValid = value.length >= rules.minLenght && isValid;
+        }
+
         return isValid;
     }
 
@@ -77,9 +68,11 @@ class ContactData extends Component {
             items: this.props.its,
             price: (+ this.props.price).toFixed(2),
             orderData: formData,
-            userId : this.props.userId
+            userId: this.props.userId
         }
-        this.props.onPurchaseCloth(order , this.props.token);       
+        this
+            .props
+            .onPurchaseCloth(order, this.props.token);
     }
 
     inputChangedHandler = (event, eventIdentifier) => {
@@ -139,20 +132,20 @@ class ContactData extends Component {
 }
 
 const mapStateToProps = state => {
-    return {its: state.clt.items,
-           price: state.clt.totalPrice,
-            erorr: state.purch.error,
-            loading : state.purch.loading ,
-            token : state.auth.token ,
-            userId : state.auth.userId
-        }
+    return {
+        its: state.clt.items,
+        price: state.clt.totalPrice,
+        erorr: state.purch.error,
+        loading: state.purch.loading,
+        token: state.auth.token,
+        userId: state.auth.userId
+    }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-       onPurchaseCloth : (orders , token )=> dispatch(action.purchseCloth(orders , token )) 
+        onPurchaseCloth: (orders, token) => dispatch(action.purchseCloth(orders, token))
     }
 }
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler( ContactData ,axios ));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));
