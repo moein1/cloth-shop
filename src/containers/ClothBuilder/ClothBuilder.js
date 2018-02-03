@@ -16,7 +16,7 @@ const ITEM_PRICE = {
     bottom: 3.2,
     top: 1.4
 }
-class ClothBuilder extends Component {
+export class ClothBuilder extends Component {
 
     state = {
         totalPrice: 4,

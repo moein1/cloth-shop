@@ -6,7 +6,7 @@ import Adpater from 'enzyme-adapter-react-16';
 import NavigationItems from './NavigationItems';
 import NavigationItem from './NavigationItem/NavigationItem';
 
-configure({adapter: new Adpater()})
+configure({adapter: new Adpater()});
 
 describe('<NavigationItems/>', () => {
     let wrapper = null;
